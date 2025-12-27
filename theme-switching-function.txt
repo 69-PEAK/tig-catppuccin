@@ -1,0 +1,23 @@
+# Tig theme switcher
+# Copy-Paste this in your '.zshrc' file
+
+tig-theme() {
+  local theme="$1"
+  local base="$HOME/.config/tig"
+  local themes="$base/themes"
+
+  if [[ -z "$theme" ]]; then
+    echo "Usage: tig-theme <theme>"
+    echo "Available themes:"
+    ls "$themes"
+    return 1
+  fi
+
+  if [[ ! -f "$themes/$theme" ]]; then
+    echo "tig-theme: theme '$theme' not found"
+    return 1
+  fi
+
+  ln -sf "$themes/$theme" "$base/theme.tig"
+  echo "Theme '$theme' applied! Restart tig to see changes."
+}
